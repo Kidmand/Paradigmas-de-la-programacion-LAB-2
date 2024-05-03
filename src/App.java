@@ -42,7 +42,7 @@ public class App {
             // TODO: Print the fetched feed
         }
 
-        if (config.getComputeNamedEntities()) {
+        if (config.getNamedEntityKey()) {
             // TODO: complete the message with the selected heuristic name
             System.out.println("Computing named entities using ");
 

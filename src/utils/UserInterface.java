@@ -29,7 +29,7 @@ public class UserInterface {
                     if (option.getnumValues() == 0) {
                         optionDict.put(option.getName(), null);
                     } else {
-                        if (i + 1 < args.length && !args[i + 1].startsWith("-")) {
+                        if (i + 1 < args.length && !isOption(args[i + 1])) {
                             optionDict.put(option.getName(), args[i + 1]);
                             i++;
                         } else {
@@ -42,11 +42,21 @@ public class UserInterface {
         }
 
         Boolean printFeed = optionDict.containsKey("-pf");
-        Boolean computeNamedEntities = optionDict.containsKey("-ne");
-        // TODO: use value for heuristic config
-        
-        String feedKey = optionDict.get("-f");
+        Boolean printHelp = optionDict.containsKey("-h");
 
-        return new Config(printFeed, computeNamedEntities, feedKey);
+        String feedKey = optionDict.get("-f");
+        String namedEntityKey = optionDict.get("-ne");
+        String statsFormatKey = optionDict.get("-sf");
+
+        return new Config(printFeed, printHelp, feedKey, namedEntityKey, statsFormatKey);
+    }
+
+    private Boolean isOption(String s) {
+        Boolean res = false;
+        for (Option option : options) {
+            res = res || (option.getName().equals(s) || option.getLongName().equals(s));
+        }
+        ;
+        return res;
     }
 }
