@@ -34,6 +34,10 @@ public class App {
             return;
         }
 
+        if (config.getPrintHelp()) {
+            printHelp(feedsDataArray);
+        }
+
         List<Article> allArticles = new ArrayList<>();
         // TODO: Populate allArticles with articles from corresponding feeds
 
