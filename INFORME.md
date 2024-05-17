@@ -21,7 +21,7 @@ Pueden usar esta checklist para indicar el avance.
     - [x] Constructor
     - [x] Método `print`
     - [x] _Accessors_
-- [ ] `parseXML`
+- [x] `parseXML`
 
 ## 1.3. Entidades nombradas
 - [ ] Pensar estructura y validarla con el docente

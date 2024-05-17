@@ -1,8 +1,10 @@
 import java.io.IOException;
+import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
 import java.util.List;
 
 import feed.Article;
+import feed.FeedParser;
 import utils.Config;
 import utils.FeedsData;
 import utils.JSONParser;
@@ -29,21 +31,66 @@ public class App {
     // TODO: Change the signature of this function if needed
     private static void run(Config config, List<FeedsData> feedsDataArray) {
 
+        if (config.getPrintHelp()) {
+            printHelp(feedsDataArray);
+        }
+
         if (feedsDataArray == null || feedsDataArray.size() == 0) {
             System.out.println("No feeds data found");
             return;
         }
 
-        if (config.getPrintHelp()) {
-            printHelp(feedsDataArray);
+        FeedsData selectedFeedData = null;
+
+        // Check if the feed key is valid and get the selected feed data
+        if (config.getFeedKey()) {
+
+            for (FeedsData feedData : feedsDataArray) {
+                if (feedData.getLabel().equals(config.getFeedKeyParam())) {
+                    selectedFeedData = feedData;
+                    break;
+                }
+            }
+
+            if (selectedFeedData == null) {
+                System.out.println("Invalid feed option");
+                return;
+            }
         }
 
+        // Fetch the feeds
         List<Article> allArticles = new ArrayList<>();
-        // TODO: Populate allArticles with articles from corresponding feeds
-
+        if (selectedFeedData != null) {
+            try {
+                String feedData = FeedParser.fetchFeed(selectedFeedData.getUrl());
+                if (selectedFeedData.getType().equals("xml")) {
+                    allArticles = FeedParser.parseXML(feedData);
+                } else {
+                    System.out.println("Invalid feed type, not supported yet");
+                    return;
+                }
+            } catch (MalformedInputException e) {
+                System.out.println("Error fetching feed, malformed input");
+                e.printStackTrace();
+                return;
+            } catch (IOException e) {
+                System.out.println("Error fetching feed, IO exception");
+                e.printStackTrace();
+                return;
+            } catch (Exception e) {
+                System.out.println("Error fetching feed, exception");
+                e.printStackTrace();
+                return;
+            }
+        }
         if (config.getPrintFeed()) {
+            printLine();
             System.out.println("Printing feed(s) ");
-            // TODO: Print the fetched feed
+
+            for (Article article : allArticles) {
+                article.print();
+                printLine();
+            }
         }
 
         if (config.getNamedEntityKey()) {
@@ -56,9 +103,7 @@ public class App {
             System.out.println("\nStats: ");
 
             // Print line
-            for (int i = 0; i < 80; i++) {
-                System.out.print("-");
-            }
+            printLine();
 
         }
     }
@@ -84,6 +129,13 @@ public class App {
         System.out.println("                                       Available formats are: ");
         System.out.println("                                       cat: Category-wise stats");
         System.out.println("                                       topic: Topic-wise stats");
+    }
+
+    static private void printLine() {
+        for (int i = 0; i < 80; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
     }
 
 }
