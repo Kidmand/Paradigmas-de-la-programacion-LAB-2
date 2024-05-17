@@ -13,13 +13,21 @@ public class Article {
         this.link = link;
     }
 
-    public void print() {
-        System.out.println("Title: " + title);
-        System.out.println("Description: " + description);
-        System.out.println("Publication Date: " + pubDate);
-        System.out.println("Link: " + link);
+    static private void printValue(String prefix, String value) {
+        if (value != "" && value != null) {
+            System.out.println(prefix + ": No content.");
+        } else {
+            System.out.println(prefix + ": " + value);
+        }
     }
-    
+
+    public void print() {
+        printValue("Title", title);
+        printValue("Description", description);
+        printValue("Publication Date", pubDate);
+        printValue("Link", link);
+    }
+
     public String getTitle() {
         return title;
     }
