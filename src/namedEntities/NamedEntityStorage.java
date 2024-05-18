@@ -23,6 +23,8 @@ public class NamedEntityStorage extends Storage<NameEntity> {
 
         String label = dictionary.getLabelFor(word);
 
+        // FIXME: Si la palabra no esta en el diccionario, no se esta agregando.
+        // Preguntar esto ???
         if (label != null && dictionary.containsLabel(label)) {
 
             DictNameEntity dictEntity = dictionary.getValue(label);
