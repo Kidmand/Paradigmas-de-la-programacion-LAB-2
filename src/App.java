@@ -99,8 +99,8 @@ public class App {
 
         // Named entities
         if (config.getNamedEntityKey()) {
-            // TODO: complete the message with the selected heuristic name
-            System.out.println("Computing named entities using ");
+            // Message with the selected heuristic name
+            System.out.println("Computing named entities using '" + config.getNamedEntityKeyParam() + "' heuristic.");
 
             /*
              * Tetsing the NamedEntityStorage class:
