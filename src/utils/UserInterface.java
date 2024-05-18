@@ -26,7 +26,7 @@ public class UserInterface {
         for (Integer i = 0; i < args.length; i++) {
             for (Option option : options) {
                 if (option.getName().equals(args[i]) || option.getLongName().equals(args[i])) {
-                    if (option.getnumValues() == 0) {
+                    if (option.getNumValues() == 0) {
                         optionDict.put(option.getName(), null);
                     } else {
                         if (i + 1 < args.length && !isOption(args[i + 1])) {

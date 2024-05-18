@@ -5,6 +5,10 @@ import java.util.List;
 
 import feed.Article;
 import feed.FeedParser;
+// import heuristics.CapitalizedWordHeuristic;
+// import namedEntities.NamedEntityStorage;
+// import namedEntities.dictionary.DictionaryStorage;
+// import namedEntities.utils.NamedEntityStatistics;
 import utils.Config;
 import utils.FeedsData;
 import utils.JSONParser;
@@ -93,14 +97,52 @@ public class App {
             }
         }
 
+        // Named entities
         if (config.getNamedEntityKey()) {
             // TODO: complete the message with the selected heuristic name
             System.out.println("Computing named entities using ");
 
+            /*
+             * Tetsing the NamedEntityStorage class:
+             * DictionaryStorage dictionary = new
+             * DictionaryStorage("src/data/dictionary.json");
+             * 
+             * String allData = "";
+             * for (Article article : allArticles) {
+             * allData += article.getTitle() + " " + article.getDescription() + " ";
+             * }
+             * 
+             * CapitalizedWordHeuristic heuristic = new CapitalizedWordHeuristic();
+             * List<String> namedEntities = heuristic.extractCandidates(allData);
+             * 
+             * 
+             * NamedEntityStorage namedEntityStorage = new NamedEntityStorage(dictionary);
+             * 
+             * for (String namedEntity : namedEntities) {
+             * namedEntityStorage.addElement(namedEntity);
+             * }
+             */
+
             // TODO: compute named entities using the selected heuristic
 
             // TODO: Print stats
-            System.out.println("\nStats: ");
+
+            /*
+             * if (config.getStatsFormatKey()) {
+             * System.out.println("\nStats: ");
+             * 
+             * NamedEntityStatistics statistics = new
+             * NamedEntityStatistics(namedEntityStorage);
+             * 
+             * if (config.getStatsFormatKeyParam().equals("cat")) {
+             * statistics.printAnalysisCategories();
+             * } else if (config.getStatsFormatKeyParam().equals("topic")) {
+             * statistics.printAnalysisTopics();
+             * } else {
+             * System.out.println("Invalid stats format option");
+             * }
+             * }
+             */
 
             // Print line
             printLine();

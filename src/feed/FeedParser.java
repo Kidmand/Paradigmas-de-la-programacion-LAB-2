@@ -73,7 +73,7 @@ public class FeedParser {
 
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Content-Type", "application/json");
-        
+
         connection.setRequestProperty("User-agent", "lab_paradigmas_grupo_45");
         connection.setConnectTimeout(5000);
         connection.setReadTimeout(5000);

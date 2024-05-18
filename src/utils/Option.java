@@ -19,7 +19,7 @@ public class Option {
         return longName;
     }
 
-    public Integer getnumValues() {
+    public Integer getNumValues() {
         return numValues;
     }
 

@@ -1,27 +1,47 @@
 package namedEntities;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
-public abstract class Storage<T> {
-    private HashMap<String, T> storage;
+public class Storage<T> {
+    protected HashMap<String, T> storage;
 
     public Storage() {
         this.storage = new HashMap<>();
     }
 
-    public void add(String key, T value) {
-        this.storage.put(key, value);
+    // ------------------------------------
+
+    public void addElement(String label, T value) {
+        this.storage.put(label, value);
     }
 
-    public T get(String key) {
-        return this.storage.get(key);
+    // ------------------------------------
+
+    public boolean containsLabel(String label) {
+        return this.storage.containsKey(label);
     }
 
-    public boolean contains(String key) {
-        return this.storage.containsKey(key);
+    public Set<String> getAllLabels() {
+        return this.storage.keySet();
     }
 
-    public void remove(String key) {
-        this.storage.remove(key);
+    // ------------------------------------
+
+    /* If the key is not found, it returns `null`. */
+    public T getValue(String label) {
+        return this.storage.get(label);
+    }
+
+    public List<T> getAllValues() {
+        return new ArrayList<T>(storage.values());
+    }
+
+    // ------------------------------------
+
+    public void remplaceValue(String label, T value) {
+        this.storage.replace(label, value);
     }
 }
