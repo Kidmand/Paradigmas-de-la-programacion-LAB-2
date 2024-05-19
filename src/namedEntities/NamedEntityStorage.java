@@ -23,7 +23,7 @@ public class NamedEntityStorage extends Storage<NameEntity> {
 
         String label = dictionary.getLabelFor(word);
 
-        if (label != null && dictionary.containsLabel(label)) {
+        if (label != null && dictionary.containsLabel(label)) { // FIXME: REDUNDANCIA: Si label != null ==> dictionary.containsLabel(label). (dejar solo label != null)
             DictNameEntity dictEntity = dictionary.getValue(label);
 
             if (containsLabel(label)) {
@@ -47,10 +47,10 @@ public class NamedEntityStorage extends Storage<NameEntity> {
             }
         } else {
             // Add new label for this word
-            if (containsLabel(word)) {
+            if (containsLabel(word)) { // FIXME: Esta guarda dara siempre false. RAZON: Si label == null ==> no existe label en el diccionario. (si de arregla fixme de getLabelFor())
                 // Update label for count
                 labelEntityCount.remplaceValue(word, labelEntityCount.getValue(word) + 1);
-            } else {
+            } else { // FIXME: Si una entidad nombrada detectada por la heuristica no esta en el diccionario, se debe guardar? nos servira a fines practicos? queremos saber cuantas veces se detecto una entidad nombrada OTHER?
                 // Create new entity
                 labelEntityCount.addElement(word, 1);
                 addElement(word, new Other(word, "OTHER", new ArrayList<String>()));
