@@ -44,7 +44,7 @@ public class NamedEntityStorage extends Storage<NameEntity> {
 
         String label = dictionary.getLabelFor(word);
 
-        if (dictionary.containsLabel(label)) {
+        if (dictionary.containsLabel(label)) { // FIXME: containsLabel() puede recibir null?
             DictNameEntity dictEntity = dictionary.getValue(label);
 
             if (containsLabel(label)) {
