@@ -11,6 +11,7 @@ public class Categories {
         categories.add("PERSON");
         categories.add("ORGANIZATION");
         categories.add("LOCATION");
+        // NOTE: Add more categories if needed
 
         return categories;
     }

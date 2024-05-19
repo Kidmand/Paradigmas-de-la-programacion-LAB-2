@@ -14,6 +14,7 @@ public class Topics {
         topics.add("HEALTH");
         topics.add("TECHNOLOGY");
         topics.add("CULTURE");
+        // NOTE: Add more categories if needed
 
         return topics;
     }
