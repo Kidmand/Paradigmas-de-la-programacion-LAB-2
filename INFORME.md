@@ -39,7 +39,7 @@ Pueden usar esta checklist para indicar el avance.
 - Estadísticas
   - [x] Por tópicos
   - [x] Por categorías
-  - [ ] Impresión de estadísticas
+  - [x] Impresión de estadísticas
 
 ## 1.4 Limpieza de código
 
