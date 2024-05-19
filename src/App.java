@@ -35,7 +35,6 @@ public class App {
         run(config, feedsDataArray, heuristics);
     }
 
-    // TODO: Change the signature of this function if needed
     private static void run(Config config, List<FeedsData> feedsDataArray, List<Heuristic> heuristics) {
 
         if (config.getPrintHelp()) {
@@ -183,6 +182,8 @@ public class App {
         System.out.println("                                       topic: Topic-wise stats");
     }
 
+    // NOTE: Add this because for some versions of Java the previous version of code
+    // that did this did not work.
     static private void printLine() {
         for (int i = 0; i < 80; i++) {
             System.out.print("-");
