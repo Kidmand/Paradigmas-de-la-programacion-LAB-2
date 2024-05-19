@@ -44,7 +44,7 @@ public class NamedEntityStorage extends Storage<NameEntity> {
 
         String label = dictionary.getLabelFor(word);
 
-        if (label != null && dictionary.containsLabel(label)) { // FIXME: REDUNDANCIA: Si label != null ==> dictionary.containsLabel(label). (dejar solo label != null)
+        if (dictionary.containsLabel(label)) {
             DictNameEntity dictEntity = dictionary.getValue(label);
 
             if (containsLabel(label)) {
@@ -68,11 +68,20 @@ public class NamedEntityStorage extends Storage<NameEntity> {
                 }
             }
         } else {
+            // FIXME: Se podrian normalizar esta palabras que no están en el diccionario.
+            // Pasarlas a minúscula por ejemplo.
+
             // Add new label for this word
-            if (containsLabel(word)) { // FIXME: Esta guarda dara siempre false. RAZON: Si label == null ==> no existe label en el diccionario. (si de arregla fixme de getLabelFor())
+            // NOTE: En esta parte revisamos si la palabra esta en el almacenamiento de
+            // entidades nombradas.
+            if (this.containsLabel(word)) {
+                // FIXME: Esta guarda dara siempre false. RAZON: Si label == null ==> no
+                // existe label en el diccionario. (si de arregla fixme de getLabelFor())
+                // ESCRITO POR MATI, que lo explique mejor (por meet).
+
                 // Update label for count
                 labelEntityCount.remplaceValue(word, labelEntityCount.getValue(word) + 1);
-            } else { // FIXME: Si una entidad nombrada detectada por la heuristica no esta en el diccionario, se debe guardar? nos servira a fines practicos? queremos saber cuantas veces se detecto una entidad nombrada OTHER?
+            } else {
                 // Create new entity
                 labelEntityCount.addElement(word, 1);
                 addElement(word, new Other(word));
