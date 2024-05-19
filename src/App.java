@@ -5,8 +5,8 @@ import java.util.List;
 
 import feed.Article;
 import feed.FeedParser;
-import heuristics.CapitalizedWordHeuristic;
 import heuristics.Heuristic;
+import heuristics.HeuristicsTools;
 import namedEntities.NamedEntityStorage;
 import namedEntities.dictionary.DictionaryStorage;
 import utils.Config;
@@ -30,9 +30,7 @@ public class App {
         UserInterface ui = new UserInterface();
         Config config = ui.handleInput(args);
 
-        List<Heuristic> heuristics = new ArrayList<>();
-        heuristics.add(new CapitalizedWordHeuristic());
-        // TODO: Add more heuristics here.
+        List<Heuristic> heuristics = HeuristicsTools.getHeuristics();
 
         run(config, feedsDataArray, heuristics);
     }
@@ -41,7 +39,7 @@ public class App {
     private static void run(Config config, List<FeedsData> feedsDataArray, List<Heuristic> heuristics) {
 
         if (config.getPrintHelp()) {
-            printHelp(feedsDataArray, heuristics);
+            printHelp(feedsDataArray, HeuristicsTools.getHeuristicsInfo(heuristics));
         }
 
         if (feedsDataArray == null || feedsDataArray.size() == 0) {
@@ -161,7 +159,7 @@ public class App {
     }
 
     // TODO: Maybe relocate this function where it makes more sense
-    private static void printHelp(List<FeedsData> feedsDataArray, List<Heuristic> heuristics) {
+    private static void printHelp(List<FeedsData> feedsDataArray, List<String> heuristicsInfo) {
         System.out.println("Usage: make run ARGS=\"[OPTION]\"");
         System.out.println("Options:");
         System.out.println("  -h, --help: Show this help message and exit");
@@ -175,8 +173,8 @@ public class App {
         System.out.println("                                       named entities");
         System.out.println("                                       Available heuristic names are: ");
         System.out.println("                                       <name>: <description>");
-        for (Heuristic heuristic : heuristics) {
-            System.out.println("                                       " + heuristic.getLongInfo());
+        for (String heuristicInfo : heuristicsInfo) {
+            System.out.println("                                       " + heuristicInfo);
         }
         System.out.println("  -pf, --print-feed:                   Print the fetched feed");
         System.out.println("  -sf, --stats-format <format>:        Print the stats in the specified format");
