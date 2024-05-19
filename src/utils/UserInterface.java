@@ -56,7 +56,7 @@ public class UserInterface {
         for (Option option : options) {
             res = res || (option.getName().equals(s) || option.getLongName().equals(s));
         }
-        ;
+
         return res;
     }
 }
