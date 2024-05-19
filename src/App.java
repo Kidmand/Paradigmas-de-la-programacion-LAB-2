@@ -5,15 +5,14 @@ import java.util.List;
 
 import feed.Article;
 import feed.FeedParser;
+
 import heuristics.Heuristic;
 import heuristics.HeuristicsTools;
+
 import namedEntities.NamedEntityStorage;
 import namedEntities.dictionary.DictionaryStorage;
-import utils.Config;
-import utils.FeedsData;
-import utils.JSONParser;
-import utils.Statistics;
-import utils.UserInterface;
+
+import utils.*;
 
 public class App {
 
@@ -131,8 +130,6 @@ public class App {
             // Create named entity storage
             NamedEntityStorage namedEntityStorage = new NamedEntityStorage(dictionary);
             for (String namedEntity : candidates) {
-                // FIXME: Si la palabra no esta en el diccionario, no se esta agregando.
-                // PREGUNTAR.
                 namedEntityStorage.addElement(namedEntity);
             }
 

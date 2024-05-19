@@ -23,8 +23,6 @@ public class NamedEntityStorage extends Storage<NameEntity> {
 
         String label = dictionary.getLabelFor(word);
 
-        // FIXME: Si la palabra no esta en el diccionario, no se esta agregando.
-        // Preguntar esto ???. Para arreglaro, descomentar el else y listo.
         if (label != null && dictionary.containsLabel(label)) {
             DictNameEntity dictEntity = dictionary.getValue(label);
 
@@ -47,18 +45,17 @@ public class NamedEntityStorage extends Storage<NameEntity> {
                     addElement(label, new Other(label, category, dictEntity.getTopics()));
                 }
             }
+        } else {
+            // Add new label for this word
+            if (containsLabel(word)) {
+                // Update label for count
+                labelEntityCount.remplaceValue(word, labelEntityCount.getValue(word) + 1);
+            } else {
+                // Create new entity
+                labelEntityCount.addElement(word, 1);
+                addElement(word, new Other(word, "OTHER", new ArrayList<String>()));
+            }
         }
-        // else {
-        // // Add new label for this word
-        // if (containsLabel(word)) {
-        // // Update label for count
-        // labelEntityCount.remplaceValue(word, labelEntityCount.getValue(word) + 1);
-        // } else {
-        // // Create new entity
-        // labelEntityCount.addElement(word, 1);
-        // addElement(word, new Other(word, "OTHER", new ArrayList<String>()));
-        // }
-        // }
 
     }
 
