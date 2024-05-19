@@ -39,6 +39,15 @@ public class DictionaryStorage extends Storage<DictNameEntity> {
      *          <code>null</code>.
      */
     public String getLabelFor(String word) {
+        /*
+         * FIXME: Si word == label este método devolvera null.
+         * Es correcto?
+         * Si si, hay que hacer un método que chequee si word == label
+         * O ya hay alguna forma? ya se sabe?
+         * Si no, creo que estaría bien que este método devuelva el label si word ==
+         * label.
+         * No veo necesario otro método para eso.
+         */
         for (DictNameEntity dict : getAllValues()) {
             if (dict.isKeywordAnyFormat(word)) {
                 return dict.getLabel();
