@@ -8,10 +8,10 @@ import feed.FeedParser;
 import heuristics.CapitalizedWordHeuristic;
 import namedEntities.NamedEntityStorage;
 import namedEntities.dictionary.DictionaryStorage;
-import namedEntities.utils.NamedEntityStatistics;
 import utils.Config;
 import utils.FeedsData;
 import utils.JSONParser;
+import utils.Statistics;
 import utils.UserInterface;
 
 public class App {
@@ -135,7 +135,7 @@ public class App {
             if (config.getStatsFormatKey()) {
                 System.out.println("\nStats: ");
 
-                NamedEntityStatistics statistics = new NamedEntityStatistics(namedEntityStorage);
+                Statistics statistics = new Statistics(namedEntityStorage);
 
                 if (config.getStatsFormatKeyParam().equals("cat")) {
                     statistics.printAnalysisCategories();

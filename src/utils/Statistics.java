@@ -1,19 +1,19 @@
-package namedEntities.utils;
+package utils;
 
 import java.util.List;
 
 import namedEntities.NamedEntityStorage;
 
-public class NamedEntityStatistics {
+public class Statistics {
 
     private NamedEntityStorage namedEntityStorage;
 
-    public NamedEntityStatistics(NamedEntityStorage namedEntityStorage) {
+    public Statistics(NamedEntityStorage namedEntityStorage) {
         this.namedEntityStorage = namedEntityStorage;
     }
 
     public void printAnalysisCategories() {
-        for (String category : namedEntities.utils.Categories.getCategories()) {
+        for (String category : namedEntities.definitions.Categories.getCategories()) {
             List<String> labels = namedEntityStorage.getLabelsOfCategory(category);
             if (labels.size() == 0) {
                 continue;
@@ -26,7 +26,7 @@ public class NamedEntityStatistics {
     }
 
     public void printAnalysisTopics() {
-        for (String topic : namedEntities.utils.Topics.getTopics()) {
+        for (String topic : namedEntities.definitions.Topics.getTopics()) {
             List<String> labels = namedEntityStorage.getLabelsOfTopic(topic);
             if (labels.size() == 0) {
                 continue;

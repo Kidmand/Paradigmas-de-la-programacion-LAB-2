@@ -11,13 +11,13 @@ abstract public class NameEntity {
     public NameEntity(String label, String category, List<String> topics) {
         this.label = label;
         // NOTE: Check if the category is valid, if not, set it to "OTHER"
-        this.category = namedEntities.utils.Categories.checkCategory(category);
+        this.category = namedEntities.definitions.Categories.checkCategory(category);
 
         // NOTE: Check if the topics are valid, if not, set it to add "OTHER".
         // Use a Set to avoid duplicates of "OTHER".
         this.topics = new java.util.HashSet<String>();
         for (String topic : topics) {
-            this.topics.add(namedEntities.utils.Topics.checkTopic(topic));
+            this.topics.add(namedEntities.definitions.Topics.checkTopic(topic));
         }
     }
 

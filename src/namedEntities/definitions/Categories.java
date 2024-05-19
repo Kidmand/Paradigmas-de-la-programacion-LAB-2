@@ -1,4 +1,4 @@
-package namedEntities.utils;
+package namedEntities.definitions;
 
 import java.util.ArrayList;
 import java.util.List;
