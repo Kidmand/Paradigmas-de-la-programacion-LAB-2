@@ -6,6 +6,7 @@ import java.util.List;
 import feed.Article;
 import feed.FeedParser;
 import heuristics.CapitalizedWordHeuristic;
+import heuristics.Heuristic;
 import namedEntities.NamedEntityStorage;
 import namedEntities.dictionary.DictionaryStorage;
 import utils.Config;
@@ -29,14 +30,18 @@ public class App {
         UserInterface ui = new UserInterface();
         Config config = ui.handleInput(args);
 
-        run(config, feedsDataArray);
+        List<Heuristic> heuristics = new ArrayList<>();
+        heuristics.add(new CapitalizedWordHeuristic());
+        // TODO: Add more heuristics here.
+
+        run(config, feedsDataArray, heuristics);
     }
 
     // TODO: Change the signature of this function if needed
-    private static void run(Config config, List<FeedsData> feedsDataArray) {
+    private static void run(Config config, List<FeedsData> feedsDataArray, List<Heuristic> heuristics) {
 
         if (config.getPrintHelp()) {
-            printHelp(feedsDataArray);
+            printHelp(feedsDataArray, heuristics);
         }
 
         if (feedsDataArray == null || feedsDataArray.size() == 0) {
@@ -113,12 +118,15 @@ public class App {
 
             // Extract candidates for named entities using the selected heuristic
             List<String> candidates = new ArrayList<>();
-            // FIXME: Esta solucion es temporal, pero se debe mejorar para que sea mas
-            // escalable y no se hardcodee el nombre.
-            if (config.getNamedEntityKeyParam().equals("capitalized")) {
-                CapitalizedWordHeuristic heuristic = new CapitalizedWordHeuristic();
-                candidates = heuristic.extractCandidates(allData);
-            } else {
+            boolean checkExistenceHeuristic = false;
+            for (Heuristic heuristic : heuristics) {
+                if (heuristic.getName().equals(config.getNamedEntityKeyParam())) {
+                    candidates = heuristic.extractCandidates(allData);
+                    checkExistenceHeuristic = true;
+                    break;
+                }
+            }
+            if (!checkExistenceHeuristic) {
                 System.out.println("Invalid named entity heuristic option, use -h for help.");
                 return;
             }
@@ -153,7 +161,7 @@ public class App {
     }
 
     // TODO: Maybe relocate this function where it makes more sense
-    private static void printHelp(List<FeedsData> feedsDataArray) {
+    private static void printHelp(List<FeedsData> feedsDataArray, List<Heuristic> heuristics) {
         System.out.println("Usage: make run ARGS=\"[OPTION]\"");
         System.out.println("Options:");
         System.out.println("  -h, --help: Show this help message and exit");
@@ -166,8 +174,10 @@ public class App {
         System.out.println("  -ne, --named-entity <heuristicName>: Use the specified heuristic to extract");
         System.out.println("                                       named entities");
         System.out.println("                                       Available heuristic names are: ");
-        // TODO: Print the available heuristics with the following format
         System.out.println("                                       <name>: <description>");
+        for (Heuristic heuristic : heuristics) {
+            System.out.println("                                       " + heuristic.getLongInfo());
+        }
         System.out.println("  -pf, --print-feed:                   Print the fetched feed");
         System.out.println("  -sf, --stats-format <format>:        Print the stats in the specified format");
         System.out.println("                                       Available formats are: ");

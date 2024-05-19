@@ -6,7 +6,11 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CapitalizedWordHeuristic {
+public class CapitalizedWordHeuristic extends Heuristic {
+
+    public CapitalizedWordHeuristic() {
+        super("capitalized", "Extracts capitalized words from the text.");
+    }
 
     public List<String> extractCandidates(String text) {
         List<String> candidates = new ArrayList<>();
