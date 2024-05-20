@@ -30,7 +30,7 @@ public class DictionaryStorage extends Storage<DictNameEntity> {
     }
 
     /**
-     * Obtiene la etiqueta de la entidad que contiene la palabra.
+     * Obtiene la etiqueta de la entidad que contiene o es la palabra.
      * 
      * @param word Palabra a buscar.
      * @return Etiqueta de la entidad que contiene la palabra.
@@ -39,17 +39,8 @@ public class DictionaryStorage extends Storage<DictNameEntity> {
      *          <code>null</code>.
      */
     public String getLabelFor(String word) {
-        /*
-         * FIXME: Si word == label este método devolvera null.
-         * Es correcto?
-         * Si si, hay que hacer un método que chequee si word == label
-         * O ya hay alguna forma? ya se sabe?
-         * Si no, creo que estaría bien que este método devuelva el label si word ==
-         * label.
-         * No veo necesario otro método para eso.
-         */
         for (DictNameEntity dict : getAllValues()) {
-            if (dict.isKeywordAnyFormat(word)) {
+            if (dict.isKeywordAnyFormat(word) || dict.getLabel().equals(word)) {
                 return dict.getLabel();
             }
         }

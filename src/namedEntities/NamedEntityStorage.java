@@ -42,9 +42,9 @@ public class NamedEntityStorage extends Storage<NameEntity> {
             return;
         }
 
-        String label = dictionary.getLabelFor(word); // FIXME: si word == label ==> label = null
+        String label = dictionary.getLabelFor(word); 
 
-        if (dictionary.containsLabel(label)) { // FIXME: containsLabel() puede recibir null?
+        if (dictionary.containsLabel(label)) {
             DictNameEntity dictEntity = dictionary.getValue(label);
 
             if (containsLabel(label)) {
@@ -75,11 +75,6 @@ public class NamedEntityStorage extends Storage<NameEntity> {
             // NOTE: En esta parte revisamos si la palabra esta en el almacenamiento de
             // entidades nombradas.
             if (this.containsLabel(word)) {
-                // FIXME: si getLabelFor() devolviese el label en vez de null al pasarle 
-                // el label, este if no seria necesario. solo habria que dejar el contenido 
-                // del else y se entenderia mejor.
-                // ESCRITO POR MATI, que lo explique mejor (por meet).
-
                 // Update label for count
                 labelEntityCount.remplaceValue(word, labelEntityCount.getValue(word) + 1);
             } else {
