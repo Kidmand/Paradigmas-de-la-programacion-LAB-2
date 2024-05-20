@@ -14,7 +14,7 @@ public class Article {
     }
 
     static private void printValue(String prefix, String value) {
-        if (value != "" && value != null) {
+        if (value == "" || value == null) {
             System.out.println(prefix + ": No content.");
         } else {
             System.out.println(prefix + ": " + value);
