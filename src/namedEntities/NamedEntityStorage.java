@@ -47,7 +47,7 @@ public class NamedEntityStorage extends Storage<NameEntity> {
         if (dictionary.containsLabel(label)) {
             DictNameEntity dictEntity = dictionary.getValue(label);
 
-            if (containsLabel(label)) {
+            if (this.containsLabel(label)) {
                 // Update label for count
                 labelEntityCount.remplaceValue(label, labelEntityCount.getValue(label) + 1);
             } else {
@@ -70,6 +70,7 @@ public class NamedEntityStorage extends Storage<NameEntity> {
         } else {
             // FIXME: Se podrian normalizar esta palabras que no están en el diccionario.
             // Pasarlas a minúscula por ejemplo.
+            // word = word.toLowerCase();
 
             // Add new label for this word
             // NOTE: En esta parte revisamos si la palabra esta en el almacenamiento de
